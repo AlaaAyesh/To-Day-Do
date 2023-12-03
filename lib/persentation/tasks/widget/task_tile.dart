@@ -25,6 +25,7 @@ class TaskTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return ListTile(
       title: GestureDetector(
         onTap: () {
@@ -39,7 +40,7 @@ class TaskTile extends StatelessWidget {
           taskTitle,
           style: TextStyle(
             fontSize: 20,
-            color: AppColors.greenSpringRain,
+            color: theme.textTheme.bodyLarge?.color,
             fontFamily: 'Mueda City.ttf',
             decoration: isChecked ? TextDecoration.lineThrough : null,
           ),
@@ -50,7 +51,7 @@ class TaskTile extends StatelessWidget {
         child: Row(
           children: [
             Checkbox(
-              activeColor: AppColors.greenSpringRain,
+              // activeColor: AppColors.greenSpringRain,
               value: isChecked,
               onChanged: checkboxChange,
             ),

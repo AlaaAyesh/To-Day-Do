@@ -8,12 +8,41 @@ ThemeData lightTheme() => ThemeData(
         bodyLarge: TextStyle(color: AppColors.greenSpringRain),
       ),
       iconTheme: const IconThemeData(color: AppColors.greenSpringRain),
+      checkboxTheme: CheckboxThemeData(
+        fillColor: MaterialStateColor.resolveWith(
+          (Set<MaterialState> states) {
+            if (states.contains(MaterialState.selected)) {
+              return AppColors
+                  .greenSpringRain; // color when checkbox is selected
+            }
+            return Colors.white; // color when checkbox is not selected
+          },
+        ),
+      ),
     );
 
 ThemeData darkTheme() => ThemeData.dark().copyWith(
       scaffoldBackgroundColor: Colors.black,
       textTheme: const TextTheme(
-        bodyLarge: TextStyle(color: AppColors.greenSpringRain),
+        bodyLarge: TextStyle(color: AppColors.chiffon),
       ),
-      iconTheme: const IconThemeData(color: AppColors.greenSpringRain),
+      iconTheme: const IconThemeData(color: AppColors.chiffon),
+      checkboxTheme: CheckboxThemeData(
+        checkColor:  MaterialStateColor.resolveWith(
+              (Set<MaterialState> states) {
+            if (states.contains(MaterialState.selected)) {
+              return Colors.black; // color when checkbox is selected
+            }
+            return Colors.black; // color when checkbox is not selected
+          },
+        ),
+        fillColor: MaterialStateColor.resolveWith(
+          (Set<MaterialState> states) {
+            if (states.contains(MaterialState.selected)) {
+              return AppColors.chiffon; // color when checkbox is selected
+            }
+            return Colors.black; // color when checkbox is not selected
+          },
+        ),
+      ),
     );

@@ -10,6 +10,8 @@ class TasksList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
     TaskProvider taskProvider = Provider.of<TaskProvider>(context);
     return ListView.builder(
       itemCount: taskProvider.tasks.length,
@@ -25,11 +27,11 @@ class TasksList extends StatelessWidget {
                 child: Dismissible(
                   key: ObjectKey(taskProvider.tasks[index]),
                   direction: DismissDirection.endToStart,
-                  background: const Center(
+                  background:  Center(
                     child: Text(
                       'delete ',
                       style: TextStyle(
-                          color: AppColors.greenSpringRain,
+                          color: theme.textTheme.bodyLarge?.color,
                           fontWeight: FontWeight.bold),
                     ),
                   ),

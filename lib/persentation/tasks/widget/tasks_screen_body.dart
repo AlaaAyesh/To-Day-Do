@@ -13,6 +13,7 @@ class TasksScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Consumer<TaskProvider>(
       builder: (context, taskProvider, child) => Container(
         padding: const EdgeInsets.only(
@@ -24,18 +25,18 @@ class TasksScreenBody extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Row(
+             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   'To Day Do',
                   style: TextStyle(
-                    color: AppColors.greenSpringRain,
+                    color: theme.textTheme.bodyLarge?.color,
                     fontSize: 40,
                     fontFamily: 'Mueda City.ttf',
                   ),
                 ),
-                ThemeToggleSwitch(),
+                const ThemeToggleSwitch(),
               ],
             ),
             Row(
@@ -43,8 +44,8 @@ class TasksScreenBody extends StatelessWidget {
               children: [
                 Text(
                   '  ${taskProvider.tasks.length} Tasks',
-                  style: const TextStyle(
-                    color: AppColors.greenSpringRain,
+                  style:  TextStyle(
+                    color: theme.textTheme.bodyLarge?.color,
                     fontSize: 18,
                     fontFamily: 'Mueda City.ttf',
                   ),
@@ -57,10 +58,10 @@ class TasksScreenBody extends StatelessWidget {
                       taskProvider.removeAllTasksChecked();
                     }
                   },
-                  icon: const Icon(
+                  icon:  Icon(
                     Icons.playlist_add_check,
                     size: 40,
-                    color: AppColors.greenSpringRain,
+                    color: theme.textTheme.bodyLarge?.color,
                   ),
                 ),
               ],
