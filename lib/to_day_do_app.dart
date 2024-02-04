@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:to_day_do/persentation/tasks/persentation/tasks_screen.dart';
-
+import 'package:to_day_do/featuers/home_screen/persentation/home_screen.dart';
 import 'busines_logic/theme_provider.dart';
 import 'core/global/themes/app_themes.dart';
 
 class ToDayDo extends StatelessWidget {
-  const ToDayDo({Key? key});
+  const ToDayDo({super.key, });
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +13,7 @@ class ToDayDo extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: ChangeNotifierProvider(
         create: (context) => ThemeProvider(),
-        child: const TasksScreen(),
+        child: const HomeScreen(),
       ),
       builder: (context, child) {
         return Consumer<ThemeProvider>(
@@ -25,7 +24,7 @@ class ToDayDo extends StatelessWidget {
               themeMode:
                   themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
               debugShowCheckedModeBanner: false,
-              home: const TasksScreen(),
+              home: const HomeScreen(),
             );
           },
         );

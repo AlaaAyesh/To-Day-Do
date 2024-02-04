@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:to_day_do/persentation/tasks/widget/show_edit_task_name.dart';
-
+import 'package:to_day_do/featuers/tasks_screen/widget/show_edit_task_name.dart';
 import '../../../core/global/colors/app_color.dart';
 import '../../../models/task_model.dart';
 
@@ -12,6 +11,7 @@ class TaskTile extends StatelessWidget {
   final void Function(String?)? editTaskName;
   final void Function() listTileDelete;
   final TaskModel previousTask;
+
   const TaskTile({
     Key? key,
     required this.isChecked,
@@ -40,7 +40,7 @@ class TaskTile extends StatelessWidget {
           taskTitle,
           style: TextStyle(
             fontSize: 20,
-            color: theme.textTheme.bodyLarge?.color,
+            color: theme.textTheme.bodyText1?.color,
             fontFamily: 'Mueda City.ttf',
             decoration: isChecked ? TextDecoration.lineThrough : null,
           ),
@@ -51,17 +51,19 @@ class TaskTile extends StatelessWidget {
         child: Row(
           children: [
             Checkbox(
-              // activeColor: AppColors.greenSpringRain,
               value: isChecked,
               onChanged: checkboxChange,
             ),
             IconButton(
-                onPressed: listTileDelete,
-                icon: const Icon(Icons.delete_rounded))
+              onPressed: listTileDelete,
+              icon: Icon(
+                Icons.delete_rounded,
+                color: theme.iconTheme.color, // Use icon theme color
+              ),
+            ),
           ],
         ),
       ),
-      // onLongPress: listTileDelete,
     );
   }
 }

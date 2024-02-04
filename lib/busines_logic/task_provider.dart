@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -7,6 +6,7 @@ import '../models/task_model.dart';
 class TaskProvider extends ChangeNotifier {
   List<TaskModel> tasks = [];
   bool iconCheckedAll = false;
+  int checkedTaskCount =0;
   TaskProvider() {
     // Load tasks from shared preferences when the provider is created.
     _loadTasks();
@@ -46,7 +46,10 @@ class TaskProvider extends ChangeNotifier {
 
   void makeAllTasksChecked() {
     for (var task in tasks) {
-      if (task.isChecked == false) task.checked();
+      if (task.isChecked == false) {
+        task.checked();
+        checkedTaskCount++;
+      }
     }
     iconCheckedAll = true;
     notifyListeners();
@@ -54,7 +57,10 @@ class TaskProvider extends ChangeNotifier {
 
   void removeAllTasksChecked() {
     for (var task in tasks) {
-      if (task.isChecked == true) task.checked();
+      if (task.isChecked == true) {
+        task.checked();
+        checkedTaskCount--;
+      }
     }
     iconCheckedAll = false;
     notifyListeners();
@@ -62,7 +68,14 @@ class TaskProvider extends ChangeNotifier {
 
   void taskChecked(int index) {
     if (index >= 0 && index < tasks.length) {
+      if(tasks[index].isChecked==true){
+        checkedTaskCount--;
+      }
+      else{
+        checkedTaskCount++;
+      }
       tasks[index].isChecked = !tasks[index].isChecked;
+
       _saveTasks();
       notifyListeners();
     }

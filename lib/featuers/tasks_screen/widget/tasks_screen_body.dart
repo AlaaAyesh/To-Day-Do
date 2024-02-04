@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:to_day_do/persentation/tasks/widget/switch_theme_button.dart';
-import 'package:to_day_do/persentation/tasks/widget/tasks_list.dart';
-
+import 'package:to_day_do/featuers/tasks_screen/widget/switch_theme_button.dart';
+import 'package:to_day_do/featuers/tasks_screen/widget/tasks_list.dart';
 import '../../../busines_logic/task_provider.dart';
-import '../../../core/global/colors/app_color.dart';
 
 class TasksScreenBody extends StatelessWidget {
   const TasksScreenBody({
@@ -18,23 +16,34 @@ class TasksScreenBody extends StatelessWidget {
       builder: (context, taskProvider, child) => Container(
         padding: const EdgeInsets.only(
           top: 40,
-          left: 20,
-          right: 20,
-          bottom: 80,
+          left: 6,
+          right: 6,
+          bottom: 40,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-             Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'To Day Do',
-                  style: TextStyle(
-                    color: theme.textTheme.bodyLarge?.color,
-                    fontSize: 40,
-                    fontFamily: 'Mueda City.ttf',
-                  ),
+                Row(
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(
+                          Icons.arrow_back_ios,
+                        )),
+                    Text(
+                      'To Day Do',
+                      style: TextStyle(
+                        color: theme.textTheme.bodyLarge?.color,
+                        fontSize: 40,
+                        fontFamily: 'Mueda City.ttf',
+                      ),
+                    ),
+                  ],
                 ),
                 const ThemeToggleSwitch(),
               ],
@@ -44,7 +53,7 @@ class TasksScreenBody extends StatelessWidget {
               children: [
                 Text(
                   '  ${taskProvider.tasks.length} Tasks',
-                  style:  TextStyle(
+                  style: TextStyle(
                     color: theme.textTheme.bodyLarge?.color,
                     fontSize: 18,
                     fontFamily: 'Mueda City.ttf',
@@ -58,7 +67,7 @@ class TasksScreenBody extends StatelessWidget {
                       taskProvider.removeAllTasksChecked();
                     }
                   },
-                  icon:  Icon(
+                  icon: Icon(
                     Icons.playlist_add_check,
                     size: 40,
                     color: theme.textTheme.bodyLarge?.color,
@@ -76,4 +85,3 @@ class TasksScreenBody extends StatelessWidget {
     );
   }
 }
-
