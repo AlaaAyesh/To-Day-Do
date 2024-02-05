@@ -154,7 +154,16 @@ class _HomeScreenAppBarState extends State<HomeScreenAppBar> {
             icon: Icon(isLoggedIn ? Icons.logout : Icons.login),
             onPressed: () async {
               if (isLoggedIn) {
-                await _auth.signOut();
+                try {
+                  // Prompt the user for data retention preference during logout
+                  final saveDataAfterLogout = await _showLogoutDialog(context);
+                  await Provider.of<UserProvider>(context, listen: false).signOut(
+                    saveDataAfterLogout: saveDataAfterLogout,
+                  );
+                } catch (error) {
+                  print('Error signing out: $error');
+                  // Handle error
+                }
               } else {
                 Navigator.push(
                   context,
@@ -169,4 +178,24 @@ class _HomeScreenAppBarState extends State<HomeScreenAppBar> {
       },
     );
   }
+  Future<bool> _showLogoutDialog(BuildContext context) async {
+    return await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Logout'),
+        content: const Text('Do you want to save your data after logout?'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('No'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text('Yes'),
+          ),
+        ],
+      ),
+    ) ?? false; // Return false if the dialog is dismissed
+  }
+
 }

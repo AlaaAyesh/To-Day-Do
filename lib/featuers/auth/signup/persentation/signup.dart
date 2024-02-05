@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:to_day_do/core/global/colors/app_color.dart';
 import 'package:to_day_do/featuers/auth/widget/custom_text_field.dart';
 import 'package:to_day_do/featuers/home_screen/persentation/home_screen.dart';
 import 'package:to_day_do/busines_logic/user_provider.dart';
@@ -81,17 +82,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     final sizeWidth = MediaQuery.of(context).size.width;
     final sizeHeight = MediaQuery.of(context).size.height;
+    final theme = Theme.of(context);
+    final isDarkMode = theme.brightness == Brightness.dark;
     return SingleChildScrollView(
       child: Column(
         children: [
-          SizedBox(height: 121),
+          SizedBox(height: sizeHeight*0.25),
           InkWell(
             onTap: () async {
               await chooseImage(ImageSource.gallery);
             },
             child: CircleAvatar(
               radius: sizeWidth * 0.15,
-              backgroundColor: Colors.red,
+              backgroundColor: isDarkMode?AppColors.mainColor3.withOpacity(0.25):Colors.white.withOpacity(0.75),
               backgroundImage: _imageFile == null ? null : FileImage(_imageFile!), // Access _imageFile directly
               child: _imageFile == null ? const Icon(Icons.image) : null, // Access _imageFile directly
             ),
@@ -130,12 +133,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
           ElevatedButton(
             onPressed: () => _handleSignUp(context),
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(Colors.pink),
-            ),
             child: const Text(
               'Sign up',
-              style: TextStyle(color: Colors.white),
             ),
           ),
         ],

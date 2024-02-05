@@ -4,10 +4,13 @@ import 'package:to_day_do/core/global/colors/app_color.dart';
 ThemeData lightTheme() => ThemeData(
       elevatedButtonTheme: const ElevatedButtonThemeData(
           style: ButtonStyle(
-            mouseCursor: MaterialStatePropertyAll(MaterialStateMouseCursor.clickable),
+              mouseCursor:
+                  MaterialStatePropertyAll(MaterialStateMouseCursor.clickable),
               shadowColor: MaterialStatePropertyAll(AppColors.mainColor5),
-              textStyle: MaterialStatePropertyAll(
-                  TextStyle(color: AppColors.mainColor5,fontFamily: 'Mueda City.ttf', letterSpacing: 1.2)),
+              textStyle: MaterialStatePropertyAll(TextStyle(
+                  color: AppColors.mainColor5,
+                  fontFamily: 'Mueda City.ttf',
+                  letterSpacing: 1.2)),
               backgroundColor: MaterialStatePropertyAll(AppColors.mainColor3))),
       dividerColor: AppColors.mainColor3,
       cardColor: AppColors.mainColor1,
@@ -42,18 +45,23 @@ ThemeData lightTheme() => ThemeData(
               AppColors.mainColor4), // Light mode color
         ),
       ),
+
+
     );
 
 ThemeData darkTheme() => ThemeData.dark().copyWith(
-  elevatedButtonTheme: const ElevatedButtonThemeData(
-      style: ButtonStyle(
-          mouseCursor: MaterialStatePropertyAll(MaterialStateMouseCursor.clickable),
-          shadowColor: MaterialStatePropertyAll(AppColors.mainColor5),
-          textStyle: MaterialStatePropertyAll(
-              TextStyle(color: AppColors.mainColor5,fontFamily: 'Mueda City.ttf', letterSpacing: 1.2)),
-          backgroundColor: MaterialStatePropertyAll(AppColors.mainColor3))),
+      elevatedButtonTheme: const ElevatedButtonThemeData(
+          style: ButtonStyle(
+              mouseCursor:
+                  MaterialStatePropertyAll(MaterialStateMouseCursor.clickable),
+              shadowColor: MaterialStatePropertyAll(AppColors.mainColor5),
+              textStyle: MaterialStatePropertyAll(TextStyle(
+                  color: AppColors.mainColor5,
+                  fontFamily: 'Mueda City.ttf',
+                  letterSpacing: 1.2)),
+              backgroundColor: MaterialStatePropertyAll(AppColors.mainColor3))),
 
-  dividerColor: AppColors.mainColor3,
+      dividerColor: AppColors.mainColor3,
       cardColor: AppColors.mainColor4,
       scaffoldBackgroundColor: AppColors.mainColor5,
       textTheme: const TextTheme(

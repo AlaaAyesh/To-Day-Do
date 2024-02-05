@@ -27,6 +27,44 @@ class UserProvider extends ChangeNotifier {
   UserProvider() {
     _loadUserData(); // Load user data from SharedPreferences
   }
+  Future<void> signOut({bool saveDataAfterLogout = true}) async {
+    try {
+      if (!saveDataAfterLogout) {
+        // Clear SharedPreferences if the user chooses not to save data after logout
+        await _prefs.clear();
+      }
+
+      // Sign out the user from FirebaseAuth
+      await FirebaseAuth.instance.signOut();
+
+      // Clear user-related data in Firestore and Storage if the user chooses not to save data after logout
+      if (!saveDataAfterLogout) {
+        final userId = FirebaseAuth.instance.currentUser?.uid;
+        if (userId != null) {
+          // Delete user document in Firestore
+          await FirebaseFirestore.instance.collection('users').doc(userId).delete();
+
+          // Delete user image in Firebase Storage
+          final ref = FirebaseStorage.instance.ref().child('user_images').child('$userId.png');
+          await ref.delete();
+        }
+
+        // Reset local user data if the user chooses not to save data after logout
+        firstName = null;
+        lastName = null;
+        email = null;
+        imageUrl = null;
+        _imageFile = null;
+      }
+
+      // Notify listeners about the changes
+      notifyListeners();
+    } catch (error) {
+      print('Error signing out: $error');
+      throw error;
+    }
+  }
+
 
   Future<void> signUp({
     required String firstName,

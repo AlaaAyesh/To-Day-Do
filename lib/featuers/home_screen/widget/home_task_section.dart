@@ -51,6 +51,7 @@ class HomeTaskSection extends StatelessWidget {
                     height: 12,
                   ),
                   Text(
+                    taskProvider.tasks.isEmpty?' NO TASKS YET ':
                     taskProvider.checkedTaskCount ==taskProvider.tasks.length? 'ALL TASKS COMPLETE ❤🤩':
                     'TASKS COMPLETE ${taskProvider.checkedTaskCount}/${taskProvider.tasks.length}',
                     style: TextStyle(

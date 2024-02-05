@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:to_day_do/core/global/colors/app_color.dart';
 
 class CustomTextField extends StatefulWidget {
   final TextEditingController controller;
@@ -22,10 +23,12 @@ class CustomTextField extends StatefulWidget {
 class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDarkMode = theme.brightness == Brightness.dark;
     return Container(
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+      decoration:  BoxDecoration(
+        color: isDarkMode?AppColors.mainColor4.withOpacity(0.75):Colors.white.withOpacity(0.25),
+        borderRadius: const BorderRadius.all(Radius.circular(10.0)),
       ),
       padding: const EdgeInsets.all(8.0),
       margin: const EdgeInsets.all(10.0),
@@ -37,7 +40,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
           border: InputBorder.none,
           prefixIcon: Icon(
             widget.data,
-            color: Theme.of(context).primaryColor,
           ),
           hintText: widget.hintText,
         ),

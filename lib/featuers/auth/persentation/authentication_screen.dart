@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/global/colors/app_color.dart';
 import '../login/persentation/login.dart';
 import '../signup/persentation/signup.dart';
 
@@ -14,43 +15,63 @@ class AuthenticationScreen extends StatefulWidget {
 class _AuthenticationScreenState extends State<AuthenticationScreen> {
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text(
-            'Welcome',
-          ),
-          elevation: 0,
-          backgroundColor: Colors.cyan,
-          bottom: const TabBar(
-            tabs: [
-              Tab(
-                icon: Icon(Icons.lock),
-                text: "login",
-              ),
-              Tab(
-                icon: Icon(Icons.lock),
-                text: "login",
-              )
-            ],
-            indicatorColor: Colors.white,
-            indicatorWeight: 5,
-          ),
+    final theme = Theme.of(context);
+    final isDarkMode = theme.brightness == Brightness.dark;
+    final gradientColors =
+        isDarkMode ? darkThemeGradientColors : lightThemeGradientColors;
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: gradientColors,
         ),
-        body: Container(
-          decoration: const BoxDecoration(
-            color: Color(0xffF5F5F5),
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(6),
-              topLeft: Radius.circular(6),
+      ),
+      child: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          extendBodyBehindAppBar: true,
+          appBar: AppBar(
+            centerTitle: true,
+            title: Text(
+              'Welcome',
+              style: TextStyle(
+                fontSize: 24,
+                color: Theme.of(context).textTheme.bodyText1?.color,
+                fontFamily: Theme.of(context).textTheme.bodyText1?.fontFamily,
+              ),
+            ),
+            // elevation: 0,
+            backgroundColor: Colors.transparent,
+            bottom:  const TabBar(
+              tabs: [
+                Tab(
+                  icon: Icon(Icons.account_circle_outlined),
+                  text: "LOGIN ",
+                ),
+                Tab(
+                  icon: Icon(Icons.account_box_outlined),
+                  text: "SING UP ",
+                ),
+              ],
+              indicatorColor: Colors.white,
+              indicatorWeight: 5,
             ),
           ),
-          child: const TabBarView(children: [LoginScreen(), SignUpScreen()]),
+          body: const TabBarView(children: [LoginScreen(), SignUpScreen()]),
         ),
       ),
     );
   }
+
+  List<Color> get lightThemeGradientColors => [
+        AppColors.mainColor1,
+        AppColors.mainColor2,
+      ];
+
+  List<Color> get darkThemeGradientColors => [
+        AppColors.mainColor5,
+        AppColors.mainColor4,
+      ];
 }
