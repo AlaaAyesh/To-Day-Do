@@ -5,6 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../busines_logic/news_provider.dart';
 import '../../../core/models/news_article.dart';
+
 class HomeNewsSection extends StatelessWidget {
   const HomeNewsSection({
     super.key,
@@ -54,7 +55,7 @@ class HomeNewsSection extends StatelessWidget {
                     ],
                   ),
                   childrenDelegate: SliverChildBuilderDelegate(
-                        (context, index) => GestureDetector(
+                    (context, index) => GestureDetector(
                       onTap: () async {
                         if (await canLaunch(news[index].url)) {
                           await launch(news[index].url);
@@ -68,7 +69,7 @@ class HomeNewsSection extends StatelessWidget {
                           image: news[index].imageUrl.startsWith('http')
                               ? NetworkImage(news[index].imageUrl)
                               : AssetImage(news[index].imageUrl)
-                          as ImageProvider<Object>,
+                                  as ImageProvider<Object>,
                           fit: BoxFit.cover,
                         ),
                       ),

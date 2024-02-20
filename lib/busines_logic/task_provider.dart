@@ -6,11 +6,13 @@ import '../models/task_model.dart';
 class TaskProvider extends ChangeNotifier {
   List<TaskModel> tasks = [];
   bool iconCheckedAll = false;
-  int checkedTaskCount =0;
+  int checkedTaskCount = 0;
+
   TaskProvider() {
     // Load tasks from shared preferences when the provider is created.
     _loadTasks();
   }
+
   Future<void> _loadTasks() async {
     final prefs = await SharedPreferences.getInstance();
 
@@ -18,9 +20,13 @@ class TaskProvider extends ChangeNotifier {
     final taskCheckedList = prefs.getStringList('taskChecked') ?? [];
 
     tasks = List.generate(taskList.length, (index) {
+      final isChecked = taskCheckedList[index] == 'true';
+      if (isChecked) {
+        checkedTaskCount++;
+      }
       return TaskModel(
         taskName: taskList[index],
-        isChecked: taskCheckedList[index] == 'true',
+        isChecked: isChecked,
       );
     });
 
@@ -31,8 +37,7 @@ class TaskProvider extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
 
     final taskList = tasks.map((task) => task.taskName).toList();
-    final taskCheckedList =
-        tasks.map((task) => task.isChecked.toString()).toList();
+    final taskCheckedList = tasks.map((task) => task.isChecked.toString()).toList();
 
     prefs.setStringList('taskNames', taskList);
     prefs.setStringList('taskChecked', taskCheckedList);
@@ -46,32 +51,35 @@ class TaskProvider extends ChangeNotifier {
 
   void makeAllTasksChecked() {
     for (var task in tasks) {
-      if (task.isChecked == false) {
+      if (!task.isChecked) {
         task.checked();
         checkedTaskCount++;
       }
     }
     iconCheckedAll = true;
+    _saveTasks();
     notifyListeners();
   }
 
   void removeAllTasksChecked() {
     for (var task in tasks) {
-      if (task.isChecked == true) {
+      if (task.isChecked) {
         task.checked();
         checkedTaskCount--;
       }
     }
     iconCheckedAll = false;
+    _saveTasks();
     notifyListeners();
   }
 
   void taskChecked(int index) {
     if (index >= 0 && index < tasks.length) {
-      if(tasks[index].isChecked==true){
-        checkedTaskCount--;
-      }
-      else{
+      if (tasks[index].isChecked) {
+        if (checkedTaskCount > 0) {
+          checkedTaskCount--;
+        }
+      } else {
         checkedTaskCount++;
       }
       tasks[index].isChecked = !tasks[index].isChecked;

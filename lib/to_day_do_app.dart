@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_day_do/featuers/home_screen/persentation/home_screen.dart';
@@ -13,7 +14,7 @@ class ToDayDo extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: ChangeNotifierProvider(
         create: (context) => ThemeProvider(),
-        child: const HomeScreen(),
+        child:  HomeScreen(auth: FirebaseAuth.instance),
       ),
       builder: (context, child) {
         return Consumer<ThemeProvider>(
@@ -24,7 +25,7 @@ class ToDayDo extends StatelessWidget {
               themeMode:
                   themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
               debugShowCheckedModeBanner: false,
-              home: const HomeScreen(),
+              home:  HomeScreen(auth: FirebaseAuth.instance),
             );
           },
         );

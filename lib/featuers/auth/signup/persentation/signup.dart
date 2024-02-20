@@ -1,5 +1,6 @@
+import 'dart:async'; // Add this import statement for the dart:async package
 import 'dart:io';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -42,7 +43,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           imageFile: _imageFile, // Pass image file to signUp method
         );
 
-        Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen(),));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen(auth: FirebaseAuth.instance,),));
       } catch (e) {
         print('Error signing up: $e');
         _showErrorDialog('Error signing up: $e');

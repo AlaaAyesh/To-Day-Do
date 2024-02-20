@@ -19,23 +19,18 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       final String email = _emailController.text.trim();
       final String password = _passwordController.text.trim();
-      UserCredential userCredential =
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
       Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => HomeScreen(),
-          ));
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomeScreen( auth: FirebaseAuth.instance),
+        ),
+      );
     } catch (e) {
       print('Error signing in: $e');
       showSnackbar(context, 'Error signing in: $e');
       // Handle sign-in errors (display error message to user)
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
       resizeToAvoidBottomInset: true, // Set to true to resize when the keyboard appears
       backgroundColor: Colors.transparent,
       body: Center(
-        child: SingleChildScrollView( // Wrap with SingleChildScrollView
+        child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Form(
@@ -53,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(height: sizeWidth*0.25),
+                  SizedBox(height: sizeWidth * 0.25),
                   TextFormField(
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
