@@ -28,7 +28,6 @@ class HomeScreen extends StatelessWidget {
 
         return Scaffold(
           drawer: const DrawerContents(),
-          appBar: HomeScreenAppBar(auth: auth),
           body: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -37,8 +36,19 @@ class HomeScreen extends StatelessWidget {
                 colors: gradientColors,
               ),
             ),
-            child: const SafeArea(
-              child: HomeScreenBody(),
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    HomeScreenAppBar(auth: auth),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.020),
+                    const HomeScreenBody(),
+                  ],
+                ),
+              ),
             ),
           ),
           backgroundColor: Colors.transparent,
@@ -57,4 +67,3 @@ class HomeScreen extends StatelessWidget {
     AppColors.mainColor4,
   ];
 }
-

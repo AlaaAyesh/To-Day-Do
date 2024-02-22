@@ -51,6 +51,10 @@ dependencies:
   image_picker: ^1.0.7
   firebase_storage: ^11.6.0
   dropdown_button2: ^2.3.9
+  video_player: ^2.8.2
+  chewie: ^1.7.5
+  table_calendar: ^3.1.0
+  persistent_bottom_nav_bar: ^5.0.2
 
 dev_dependencies:
   flutter_test:
@@ -78,6 +82,8 @@ flutter:
   assets:
      - assets/download.png
      - assets/app_images/image1.jpg
+#     - assets/video/introvd.mp4
+     - assets/video/todaydo.mp4
      - assets/app_images/
 #     - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

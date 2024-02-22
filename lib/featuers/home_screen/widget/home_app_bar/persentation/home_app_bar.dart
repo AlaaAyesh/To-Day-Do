@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:table_calendar/table_calendar.dart';
 import '../../../../../core/global/colors/app_color.dart';
 import '../../../../../busines_logic/user_provider.dart';
 import '../widget/app_bar_profile_image.dart';
 import '../widget/app_bar_profile_info.dart';
+import 'package:intl/intl.dart';
 
-class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
+class HomeScreenAppBar extends StatelessWidget {
   final FirebaseAuth _auth;
 
   const HomeScreenAppBar({
@@ -17,47 +19,109 @@ class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Brightness brightness = Theme.of(context).brightness;
-    final Color backgroundColor = brightness == Brightness.light
-        ? AppColors.mainColor1
-        : AppColors.mainColor5;
-    final Color iconColor = brightness == Brightness.light
-        ? AppColors.mainColor4
-        : AppColors.mainColor1;
+    final ThemeData theme = Theme.of(context);
+    final Brightness brightness = theme.brightness;
 
-    return Consumer<UserProvider>(
-      builder: (context, userProvider, child) => AppBar(
-        automaticallyImplyLeading: false,
-        iconTheme: IconThemeData(color: iconColor),
-        backgroundColor: backgroundColor,
-        title: _buildProfileInfo(context),
+    return Container(
+      color: Colors.white10,
+      height: MediaQuery.of(context).size.height * 0.25,
+      width: MediaQuery.of(context).size.width,
+      child: Consumer<UserProvider>(
+        builder: (context, userProvider, child) => Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: MediaQuery.of(context).size.height * 0.020),
+              GestureDetector(
+                onTap: () {
+                  Scaffold.of(context).openDrawer();
+                },
+                child: ProfileImage(
+                  imageUrl: userProvider.imageUrl,
+                ),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.020),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const CalendarScreen()),
+                  );
+                },
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      DateFormat('EEEE, dd MMMM').format(DateTime.now()),
+                      style: TextStyle(
+                        color: brightness == Brightness.light
+                            ? AppColors.mainColor4
+                            : AppColors.mainColor1,
+                        fontSize: 18,
+                        fontFamily: 'Mueda City.ttf',
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.020),
+              AppBarProfileInfo(auth: _auth),
+            ],
+          ),
+        ),
       ),
     );
   }
+}
 
-  Widget _buildProfileInfo(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Scaffold.of(context).openDrawer();
-      },
-      child: Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Consumer<UserProvider>(
-              builder: (context, userProvider, child) {
-                return ProfileImage(
-                  imageUrl: userProvider.imageUrl,
-                );
-              },
-            ),
-          ),
-          AppBarProfileInfo(auth: _auth), // Access widget._auth
-        ],
-      ),
-    );
+class CalendarScreen extends StatefulWidget {
+  const CalendarScreen({Key? key}) : super(key: key);
+
+  @override
+  _CalendarScreenState createState() => _CalendarScreenState();
+}
+
+class _CalendarScreenState extends State<CalendarScreen> {
+  late CalendarFormat _calendarFormat;
+  late DateTime _focusedDay;
+  late DateTime _selectedDay;
+
+  @override
+  void initState() {
+    super.initState();
+    _calendarFormat = CalendarFormat.month;
+    _focusedDay = DateTime.now();
+    _selectedDay = DateTime.now();
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Modern Calendar'),
+      ),
+      body: TableCalendar(
+        firstDay: DateTime.utc(2020, 1, 1),
+        lastDay: DateTime.utc(2030, 12, 31),
+        focusedDay: _focusedDay,
+        calendarFormat: _calendarFormat,
+        selectedDayPredicate: (day) {
+          return isSameDay(_selectedDay, day);
+        },
+        onDaySelected: (selectedDay, focusedDay) {
+          setState(() {
+            _selectedDay = selectedDay;
+            _focusedDay = focusedDay;
+          });
+        },
+        onPageChanged: (focusedDay) {
+          setState(() {
+            _focusedDay = focusedDay;
+          });
+        },
+      ),
+    );
+  }
 }

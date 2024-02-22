@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../busines_logic/user_provider.dart';
-import '../../../../auth/persentation/authentication_screen.dart';
+import '../../../../auth_screen/persentation/authentication_screen.dart';
 
 class LogoutButton extends StatelessWidget {
   const LogoutButton({Key? key, required this.auth}) : super(key: key);

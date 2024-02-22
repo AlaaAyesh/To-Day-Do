@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:to_day_do/featuers/tasks_screen/persentation/tasks_screen.dart';
 
 import '../../../busines_logic/task_provider.dart';
+import '../../tasks_screen/widget/tasks_screen_floating_action_button.dart';
 import 'home_news_section.dart';
 import 'home_note_section.dart';
 import 'home_setting_section.dart';
@@ -20,19 +21,18 @@ class HomeScreenBody extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     return Consumer<TaskProvider>(
       builder: (context, taskProvider, child) => Expanded(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                StaggeredGrid.count(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 3,
-                  crossAxisSpacing: 2,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: sizeHeight * 0.3,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(
-                      width: sizeWidth * 0.5,
-                      height: sizeHeight * 0.5,
+                    Expanded(
+                      flex: 1,
                       child: GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -48,19 +48,30 @@ class HomeScreenBody extends StatelessWidget {
                             theme: theme),
                       ),
                     ),
-                    HomeNewsSection(theme: theme, sizeHeight: sizeHeight),
-                    HomeNoteSection(
-                        sizeWidth: sizeWidth,
-                        sizeHeight: sizeHeight,
-                        theme: theme),
-                    HomeSettingSection(
-                        sizeWidth: sizeWidth,
-                        sizeHeight: sizeHeight,
-                        theme: theme),
+                    Expanded(
+                      flex: 1,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const TasksScreen()), // Corrected route
+                          );
+                        },
+                        child: HomeNoteSection(
+                            sizeWidth: sizeWidth,
+                            sizeHeight: sizeHeight,
+                            theme: theme),
+                      ),
+                    ),
                   ],
                 ),
-              ],
-            ),
+              ),
+              SizedBox(
+                  height: sizeHeight * 0.25,
+                  child: HomeNewsSection(theme: theme, sizeHeight: sizeHeight)),
+            ],
           ),
         ),
       ),

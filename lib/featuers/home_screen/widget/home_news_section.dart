@@ -19,8 +19,7 @@ class HomeNewsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      shadowColor: Colors.grey,
-      elevation: 16,
+      color: Colors.white,
       child: Column(
         children: [
           const SizedBox(
@@ -34,50 +33,51 @@ class HomeNewsSection extends StatelessWidget {
               fontFamily: 'Mueda City.ttf',
             ),
           ),
-          Container(
-            decoration: const BoxDecoration(color: Colors.transparent),
-            height: sizeHeight * 0.8,
-            child: Consumer<NewsProvider>(
-              builder: (context, newsProvider, child) {
-                final List<NewsArticle> news = newsProvider.news;
-                return GridView.custom(
-                  gridDelegate: SliverQuiltedGridDelegate(
-                    crossAxisCount: 4,
-                    mainAxisSpacing: 4,
-                    crossAxisSpacing: 4,
-                    repeatPattern: QuiltedGridRepeatPattern.inverted,
-                    pattern: const [
-                      QuiltedGridTile(2, 2),
-                      QuiltedGridTile(1, 1),
-                      QuiltedGridTile(1, 1),
-                      QuiltedGridTile(1, 2),
-                      QuiltedGridTile(1, 2),
-                    ],
-                  ),
-                  childrenDelegate: SliverChildBuilderDelegate(
-                    (context, index) => GestureDetector(
-                      onTap: () async {
-                        if (await canLaunch(news[index].url)) {
-                          await launch(news[index].url);
-                        } else {
-                          throw 'Could not launch ${news[index].url}';
-                        }
-                      },
-                      child: Card(
-                        elevation: 16.0,
-                        child: Image(
-                          image: news[index].imageUrl.startsWith('http')
-                              ? NetworkImage(news[index].imageUrl)
-                              : AssetImage(news[index].imageUrl)
-                                  as ImageProvider<Object>,
-                          fit: BoxFit.cover,
+          Expanded(
+            child: Container(
+              decoration: const BoxDecoration(color: Colors.transparent),
+              child: Consumer<NewsProvider>(
+                builder: (context, newsProvider, child) {
+                  final List<NewsArticle> news = newsProvider.news;
+                  return GridView.custom(
+                    gridDelegate: SliverQuiltedGridDelegate(
+                      crossAxisCount: 4,
+                      mainAxisSpacing: 4,
+                      crossAxisSpacing: 4,
+                      repeatPattern: QuiltedGridRepeatPattern.inverted,
+                      pattern: const [
+                        QuiltedGridTile(2, 2),
+                        QuiltedGridTile(1, 1),
+                        QuiltedGridTile(1, 1),
+                        QuiltedGridTile(1, 2),
+                        QuiltedGridTile(1, 2),
+                      ],
+                    ),
+                    childrenDelegate: SliverChildBuilderDelegate(
+                      (context, index) => GestureDetector(
+                        onTap: () async {
+                          if (await canLaunch(news[index].url)) {
+                            await launch(news[index].url);
+                          } else {
+                            throw 'Could not launch ${news[index].url}';
+                          }
+                        },
+                        child: Card(
+                          elevation: 16.0,
+                          child: Image(
+                            image: news[index].imageUrl.startsWith('http')
+                                ? NetworkImage(news[index].imageUrl)
+                                : AssetImage(news[index].imageUrl)
+                                    as ImageProvider<Object>,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
+                      childCount: news.length,
                     ),
-                    childCount: news.length,
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
           ),
         ],

@@ -5,9 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:to_day_do/core/global/colors/app_color.dart';
-import 'package:to_day_do/featuers/auth/widget/custom_text_field.dart';
 import 'package:to_day_do/featuers/home_screen/persentation/home_screen.dart';
 import 'package:to_day_do/busines_logic/user_provider.dart';
+
+import '../../widget/custom_text_field.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);

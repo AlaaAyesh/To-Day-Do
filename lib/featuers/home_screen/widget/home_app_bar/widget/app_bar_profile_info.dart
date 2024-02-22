@@ -24,7 +24,7 @@ class AppBarProfileInfo extends StatelessWidget {
             'Not logged in',
             style: TextStyle(
               color: Theme.of(context).textTheme.bodyLarge?.color,
-              fontSize: 16,
+              fontSize:28,
               fontFamily: Theme.of(context).textTheme.bodyLarge?.fontFamily,
             ),
           );
@@ -49,7 +49,7 @@ class AppBarProfileInfo extends StatelessWidget {
                   'hello , $username',
                   style: TextStyle(
                     color: Theme.of(context).textTheme.bodyLarge?.color,
-                    fontSize: 16,
+                    fontSize: 28,
                     fontFamily:
                         Theme.of(context).textTheme.bodyLarge?.fontFamily,
                   ),

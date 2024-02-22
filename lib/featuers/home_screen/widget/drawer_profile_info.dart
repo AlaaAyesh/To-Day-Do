@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../busines_logic/user_provider.dart';
-import '../../user/persentation/profile_screen.dart';
+import '../../user_info_screen/persentation/profile_screen.dart';
 import 'home_app_bar/widget/app_bar_profile_image.dart';
 
 class DrawerProfileInfo extends StatefulWidget {

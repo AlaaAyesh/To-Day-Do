@@ -12,10 +12,8 @@ class ProfileImage extends StatelessWidget {
             backgroundImage: CachedNetworkImageProvider(
               imageUrl,
             ),
-            // radius: 30,
           )
         : const CircleAvatar(
-            // radius: 30,
             child: Icon(Icons.person),
           );
   }
