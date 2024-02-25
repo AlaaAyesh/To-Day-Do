@@ -19,7 +19,7 @@ class HomeNewsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white,
+      // color: Colors.white,
       child: Column(
         children: [
           const SizedBox(

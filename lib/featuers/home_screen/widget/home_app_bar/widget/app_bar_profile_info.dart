@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:to_day_do/featuers/auth_screen/persentation/authentication_screen.dart';
+import 'package:to_day_do/featuers/auth_screen/signup/persentation/signup.dart';
 
 class AppBarProfileInfo extends StatelessWidget {
   const AppBarProfileInfo({
-    super.key,
+    Key? key,
     required FirebaseAuth auth,
-  }) : _auth = auth;
+  }) : _auth = auth, super(key: key);
 
   final FirebaseAuth _auth;
 
@@ -20,12 +22,17 @@ class AppBarProfileInfo extends StatelessWidget {
         } else if (snapshot.hasError) {
           return const Text('Error');
         } else if (!snapshot.hasData) {
-          return Text(
-            'Not logged in',
-            style: TextStyle(
-              color: Theme.of(context).textTheme.bodyLarge?.color,
-              fontSize:28,
-              fontFamily: Theme.of(context).textTheme.bodyLarge?.fontFamily,
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const AuthenticationScreen()));
+            },
+            child: Text(
+              'START LOGIN IN ',
+              style: TextStyle(
+                color: Theme.of(context).textTheme.bodyLarge?.color,
+                fontSize:28,
+                fontFamily: Theme.of(context).textTheme.bodyLarge?.fontFamily,
+              ),
             ),
           );
         } else {
@@ -51,7 +58,7 @@ class AppBarProfileInfo extends StatelessWidget {
                     color: Theme.of(context).textTheme.bodyLarge?.color,
                     fontSize: 28,
                     fontFamily:
-                        Theme.of(context).textTheme.bodyLarge?.fontFamily,
+                    Theme.of(context).textTheme.bodyLarge?.fontFamily,
                   ),
                 );
               }

@@ -7,9 +7,13 @@ class TaskProvider extends ChangeNotifier {
   List<TaskModel> tasks = [];
   bool iconCheckedAll = false;
   int checkedTaskCount = 0;
+  List<String> checkedTasks = [];
 
+  void addCheckedTask(String task) {
+    checkedTasks.add(task);
+    notifyListeners();
+  }
   TaskProvider() {
-    // Load tasks from shared preferences when the provider is created.
     _loadTasks();
   }
 
@@ -23,6 +27,7 @@ class TaskProvider extends ChangeNotifier {
       final isChecked = taskCheckedList[index] == 'true';
       if (isChecked) {
         checkedTaskCount++;
+        checkedTasks.add(taskList[index]); // Add checked task to checkedTasks list
       }
       return TaskModel(
         taskName: taskList[index],
@@ -76,10 +81,14 @@ class TaskProvider extends ChangeNotifier {
   void taskChecked(int index) {
     if (index >= 0 && index < tasks.length) {
       if (tasks[index].isChecked) {
+        // Add the checked task to the checkedTasks list
+        checkedTasks.remove(tasks[index].taskName);
         if (checkedTaskCount > 0) {
           checkedTaskCount--;
         }
       } else {
+        // Remove the unchecked task from the checkedTasks list
+        addCheckedTask(tasks[index].taskName);
         checkedTaskCount++;
       }
       tasks[index].isChecked = !tasks[index].isChecked;
@@ -99,6 +108,7 @@ class TaskProvider extends ChangeNotifier {
 
   void removeTask(TaskModel task, BuildContext context) {
     tasks.remove(task);
+    checkedTasks.remove(task.taskName);
     _saveTasks();
     notifyListeners();
     ScaffoldMessenger.of(context).showSnackBar(

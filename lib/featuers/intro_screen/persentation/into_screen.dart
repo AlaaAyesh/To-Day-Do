@@ -6,6 +6,8 @@ import 'package:video_player/video_player.dart';
 import '../../home_screen/persentation/home_screen.dart';
 
 class IntroVideoScreen extends StatefulWidget {
+  const IntroVideoScreen({super.key});
+
   @override
   _IntroVideoScreenState createState() => _IntroVideoScreenState();
 }
@@ -73,3 +75,4 @@ class _IntroVideoScreenState extends State<IntroVideoScreen> {
     );
   }
 }
+

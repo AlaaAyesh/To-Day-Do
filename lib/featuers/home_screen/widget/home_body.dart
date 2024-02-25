@@ -39,7 +39,7 @@ class HomeScreenBody extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    const TasksScreen()), // Corrected route
+                                    const TasksScreen()),
                           );
                         },
                         child: HomeTaskSection(
@@ -56,10 +56,10 @@ class HomeScreenBody extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    const TasksScreen()), // Corrected route
+                                    const TasksScreen()),
                           );
                         },
-                        child: HomeNoteSection(
+                        child: HomeCheckedTasksSection(
                             sizeWidth: sizeWidth,
                             sizeHeight: sizeHeight,
                             theme: theme),

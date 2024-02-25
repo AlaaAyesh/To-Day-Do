@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:to_day_do/featuers/home_screen/widget/drawer_profile_info.dart';
 
+import '../../../busines_logic/theme_provider.dart';
 import '../../tasks_screen/persentation/tasks_screen.dart';
 import '../../tasks_screen/widget/switch_theme_button.dart';
 import 'home_app_bar/widget/logout_button.dart';
@@ -67,7 +69,24 @@ class DrawerContents extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.1,
             color: Colors.orangeAccent,
           ),
-          const ThemeToggleSwitch(),
+          Consumer<ThemeProvider>(
+            builder: (context, themeProvider, child) {
+              return Row(
+                children: [
+                  const ThemeToggleSwitch(),
+                  Text(
+                    themeProvider.isDarkMode ? 'Dark Mode' : 'Light Mode',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: themeProvider.isDarkMode
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
           LogoutButton(auth: FirebaseAuth.instance),
         ],
       ),

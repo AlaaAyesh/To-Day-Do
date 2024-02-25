@@ -21,7 +21,7 @@ class HomeTaskSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<TaskProvider>(
       builder: (context, taskProvider, child) =>  Card(
-        color: Colors.white,
+        // color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
           child: Column(
@@ -41,7 +41,7 @@ class HomeTaskSection extends StatelessWidget {
               ),
               Text(
                 taskProvider.tasks.isEmpty?' NO TASKS YET ':
-                taskProvider.checkedTaskCount ==taskProvider.tasks.length? 'ALL TASKS COMPLETE ❤🤩':
+                taskProvider.checkedTaskCount ==taskProvider.tasks.length? 'ALL TASKS COMPLETE':
                 'TASKS COMPLETE ${taskProvider.checkedTaskCount}/${taskProvider.tasks.length}',
                 style: TextStyle(
                   color: theme.textTheme.bodyLarge?.color,

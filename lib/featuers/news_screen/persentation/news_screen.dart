@@ -8,24 +8,54 @@ class NewsScreen extends StatefulWidget {
   const NewsScreen({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _NewsScreenState createState() => _NewsScreenState();
 }
 
 class _NewsScreenState extends State<NewsScreen> {
   late Future<List<NewsArticle>> futureNews;
+  late List<NewsArticle> allNews = [];
+  late TextEditingController _searchController;
 
   @override
   void initState() {
     super.initState();
     futureNews = NewsApi.fetchTopHeadlines();
+    _searchController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  void _searchNews(String query) {
+    if (query.isEmpty) {
+      setState(() {
+        futureNews = NewsApi.fetchTopHeadlines();
+      });
+    } else {
+      setState(() {
+        futureNews = NewsApi.searchNews(query);
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Top Headlines'),
+        backgroundColor: Colors.transparent,
+        title: TextField(
+          controller: _searchController,
+          onChanged: _searchNews,
+          decoration: const InputDecoration(
+            hintText: 'Search news...',
+            hintStyle: TextStyle(color: Colors.white54),
+            border: InputBorder.none,
+          ),
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: FutureBuilder(
         future: futureNews,
@@ -48,9 +78,7 @@ class _NewsScreenState extends State<NewsScreen> {
                     children: [
                       GestureDetector(
                         onTap: () async {
-                          // ignore: deprecated_member_use
                           if (await canLaunch(news[index].url)) {
-                            // ignore: deprecated_member_use
                             await launch(news[index].url);
                           } else {
                             throw 'Could not launch ${news[index].url}';
@@ -60,7 +88,7 @@ class _NewsScreenState extends State<NewsScreen> {
                           image: news[index].imageUrl.startsWith('http')
                               ? NetworkImage(news[index].imageUrl)
                               : AssetImage(news[index].imageUrl)
-                                  as ImageProvider<Object>,
+                          as ImageProvider<Object>,
                           width: double.infinity,
                           height: 150,
                           fit: BoxFit.cover,

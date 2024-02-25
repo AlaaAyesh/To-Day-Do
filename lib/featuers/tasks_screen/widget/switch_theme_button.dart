@@ -23,14 +23,14 @@ class ThemeToggleSwitch extends StatelessWidget {
                     themeProvider.isDarkMode
                         ? const Icon(Icons.nightlight_round)
                         : const Icon(Icons.wb_sunny),
-                    const SizedBox(width: 8), // Add space between icon and text
-                    Text(
-                      themeProvider.isDarkMode ? 'Dark Mode' : 'Light Mode',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: themeProvider.isDarkMode ? Colors.white : Colors.black,
-                      ),
-                    ),
+                    const SizedBox(width: 8),
+                    // Text(
+                    //   themeProvider.isDarkMode ? 'Dark Mode' : 'Light Mode',
+                    //   style: TextStyle(
+                    //     fontSize: 16,
+                    //     color: themeProvider.isDarkMode ? Colors.white : Colors.black,
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

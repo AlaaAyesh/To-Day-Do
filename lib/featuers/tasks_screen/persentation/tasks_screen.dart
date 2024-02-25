@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../../busines_logic/task_provider.dart';
 import '../../../core/global/colors/app_color.dart';
 import '../widget/tasks_screen_body.dart';
 import '../widget/tasks_screen_floating_action_button.dart';
@@ -29,6 +31,7 @@ class TasksScreen extends StatelessWidget {
     );
 
   }
+
   List<Color> get lightThemeGradientColors => [
     AppColors.mainColor1,
     AppColors.mainColor2,

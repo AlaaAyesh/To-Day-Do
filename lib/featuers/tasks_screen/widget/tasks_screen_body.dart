@@ -24,28 +24,23 @@ class TasksScreenBody extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: Icon(
-                          Icons.arrow_back_ios,
-                        )),
-                    Text(
-                      'To Day Do',
-                      style: TextStyle(
-                        color: theme.textTheme.bodyLarge?.color,
-                        fontSize: 40,
-                        fontFamily: 'Mueda City.ttf',
-                      ),
-                    ),
-                  ],
+                IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(
+                      Icons.arrow_back_ios,
+                    )),
+                Text(
+                  'To Day Do',
+                  style: TextStyle(
+                    color: theme.textTheme.bodyLarge?.color,
+                    fontSize: 40,
+                    fontFamily: 'Mueda City.ttf',
+                  ),
                 ),
-                const ThemeToggleSwitch(),
               ],
             ),
             Row(
@@ -59,19 +54,25 @@ class TasksScreenBody extends StatelessWidget {
                     fontFamily: 'Mueda City.ttf',
                   ),
                 ),
-                IconButton(
-                  onPressed: () {
-                    if (taskProvider.iconCheckedAll == false) {
-                      taskProvider.makeAllTasksChecked();
-                    } else {
-                      taskProvider.removeAllTasksChecked();
-                    }
-                  },
-                  icon: Icon(
-                    Icons.playlist_add_check,
-                    size: 40,
-                    color: theme.textTheme.bodyLarge?.color,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const ThemeToggleSwitch(),
+                    IconButton(
+                      onPressed: () {
+                        if (taskProvider.iconCheckedAll == false) {
+                          taskProvider.makeAllTasksChecked();
+                        } else {
+                          taskProvider.removeAllTasksChecked();
+                        }
+                      },
+                      icon: Icon(
+                        Icons.playlist_add_check,
+                        size: 40,
+                        color: theme.textTheme.bodyLarge?.color,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
